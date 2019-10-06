@@ -13,6 +13,8 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+import RecipeReviewCard from './componentes/listaProductos.js'
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -52,7 +54,7 @@ function App(props) {
 
       <Grid container spacing={3} style={{padding:'2%'}}>
         <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3 producto 1</Paper>
+          <Paper className={classes.paper}><RecipeReviewCard /></Paper>
         </Grid>
         <Grid item xs={3}>
           <Paper className={classes.paper}>xs=3 producto 2</Paper>
