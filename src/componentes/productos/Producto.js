@@ -64,7 +64,7 @@ class Producto extends React.Component {
         />
         <CardMedia
           className={classes.media}
-          image="/imagenes/bonsai.JPG"
+          image="/imagenes/bonsai.jpg"
           title="Paella dish"
         />
         <CardContent>

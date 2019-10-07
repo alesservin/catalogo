@@ -37,6 +37,7 @@ class FormularioProducto extends React.Component{
     idType: '',
     limitDate: '',
     tipos: [],
+    proveedores: [],
     precio: '',
     imagen: '',
   };
@@ -76,6 +77,21 @@ class FormularioProducto extends React.Component{
         console.log('Error');
         console.log(err);
       })
+      
+    // se toman todos los proveedores
+    axios.get('/ws/rest/proveedores/')
+      .then(res => {
+        const proveedores = res.data; // se obtiene las tareas
+        let vecProveedores = proveedores.map(proveedores => (
+          { id: proveedores.id, nombre: proveedores.nombre }
+        ));
+        //se pasa el vector
+        this.setState({proveedores:vecProveedores}) ;
+      })
+      .catch(err => {
+        console.log('Error');
+        console.log(err);
+      })
 
   }
 
@@ -99,6 +115,7 @@ class FormularioProducto extends React.Component{
         const id = e.target.value;
         this.setState({ idType: id });
         break;
+ 
       case 'fechaLimite':
         this.setState({limitDate: e.target.value});
         break;
@@ -226,8 +243,8 @@ class FormularioProducto extends React.Component{
                   <Select value={this.state.idType} onChange={this.handleChangeTxt('tipo')}
                   displayEmpty name="tipo" style={{width:'80%'}}>
                     // se toman todos los tipos
-                    { this.state.tipos.map(tipo =>(
-                      <MenuItem value={tipo.id}>{tipo.nombre}</MenuItem>
+                    { this.state.proveedores.map(p =>(
+                      <MenuItem value={p.id}>{p.nombre}</MenuItem>
                     ))
                     }
                   </Select> <br></br>
@@ -259,7 +276,7 @@ class FormularioProducto extends React.Component{
               </Grid>
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  Fecha de  compra:
+                  Fecha de compra:
                   <DatePicker
                   style={{width:'80%'}}
                   selected={this.state.limitDate}

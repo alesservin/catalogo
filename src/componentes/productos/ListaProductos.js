@@ -17,8 +17,8 @@ class ListaProductos extends React.Component{
   componentDidMount(){
     axios.get('/ws/rest/productos/')
       .then(res => {
-        // const productos = res.data; // se obtiene los productos
-        // this.setState({ productos: productos })
+         const productos = res.data; // se obtiene los productos
+         this.setState({ productos: productos })
       })
       .catch(err => {
         console.log('Error');
@@ -64,9 +64,12 @@ class ListaProductos extends React.Component{
               }}
             />
           </Grid>
+        </Grid>
+        <Grid container spacing={3} style={{padding:'2%'}}>
           {this.state.productos.map(p => (
             <Grid item xs={3}>
-              <Producto  />
+              <Producto  nombre={p.nombre} categoria={p.categoria.nombre} 
+              precio={`Precio: ${p.precio}`} imagen={p.imagen} />
             </Grid>
           ))}
         </Grid>
