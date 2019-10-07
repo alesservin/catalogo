@@ -51,10 +51,10 @@ class Producto extends React.Component {
   render() {
     const { classes } = this.props;
 
-    const {nombre} = this.props;
-    const {categoria} = this.props;
-    const {precio} = this.props;
-    const {imagen} = this.props;
+    const { nombre } = this.props;
+    const { categoria } = this.props;
+    const { precio } = this.props;
+    const { imagen } = this.props;
 
     return (
       <Card className={classes.card}>
