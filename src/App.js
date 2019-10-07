@@ -4,12 +4,14 @@ import './App.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import ListaProductos from './componentes/productos/ListaProductos.js'
+import About from './componentes/About.js'
 
 const styles = theme => ({
   root: {
@@ -34,22 +36,34 @@ function App(props) {
 
   return (
     <>
-      <header>
-        <div className={classes.root}>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography variant="h6" color="inherit" className={classes.grow}>
-                Catálogo
-              </Typography>
-              <Button color="inherit">Home</Button>
-              <Button color="inherit">About</Button>
-            </Toolbar>
-          </AppBar>
-        </div>
-      </header>
+      <Router>
+        <header>
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Toolbar>
+                <Typography variant="h6" color="inherit" className={classes.grow}>
+                  Catálogo
+                </Typography>
+                <Button color="inherit">
+                  <Link style={{textDecoration:'none',color:'white'}} to="/">
+                    Home
+                  </Link>
+                </Button>
+                <Button color="inherit">
+                  <Link style={{textDecoration:'none',color:'white'}}
+                   to="/about">
+                    About
+                  </Link>
+                </Button>
+              </Toolbar>
+            </AppBar>
+          </div>
+        </header>
 
-      <ListaProductos />
+        <Route path="/" exact component={ListaProductos} />
+        <Route path="/about" component={About} />
 
+      </Router>
       <footer>
         <AppBar position="static">
             <Toolbar>

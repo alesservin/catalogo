@@ -2,12 +2,16 @@ import React from 'react';
 import axios from 'axios';
 
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+// import Paper from '@material-ui/core/Paper';
 
 import Producto from './Producto.js'
 
 class ListaProductos extends React.Component{
   state = {
     productos: [],
+    checked: false,
   }
 
   componentDidMount(){
@@ -22,10 +26,40 @@ class ListaProductos extends React.Component{
       })
   }
 
+  handleChangeCheckBoxFavoritos = event => {
+    this.setState({ checked: event.target.checked });
+
+    //verificar si el checkbox está en true o false
+    if (event.target.checked === true) {
+      // si es true, ordenar la lista de productos por favoritos
+
+    }
+    else {
+      // si es false, NO ORDENAR por favoritos
+    }
+  };
+
   render(){
     return(
       <>
         <Grid container spacing={3} style={{padding:'2%'}}>
+          <Grid item xs={5}>
+            <Button variant="contained" >
+              + Nuevo
+            </Button>
+          </Grid>
+          <Grid item xs={3}>
+            Ordenar por favoritos
+            <Checkbox
+              checked={this.state.checked}
+              onChange={this.handleChangeCheckBoxFavoritos}
+              value="checkedB"
+              color="primary"
+              inputProps={{
+                'aria-label': 'secondary checkbox',
+              }}
+            />
+          </Grid>
           {this.state.productos.map(p => (
             <Grid item xs={3}>
               <Producto  />
