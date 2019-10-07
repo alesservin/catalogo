@@ -51,25 +51,20 @@ class Producto extends React.Component {
   render() {
     const { classes } = this.props;
 
+    const {nombre} = this.props;
+    const {categoria} = this.props;
+    const {precio} = this.props;
+    const {imagen} = this.props;
+
     return (
       <Card className={classes.card}>
         <CardHeader
-          avatar={
-            <Avatar aria-label="Recipe" className={classes.avatar}>
-              R
-            </Avatar>
-          }
-          action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          }
           title="Shrimp and Chorizo Paella"
           subheader="September 14, 2016"
         />
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/paella.jpg"
+          image="/imagenes/bonsai.JPG"
           title="Paella dish"
         />
         <CardContent>

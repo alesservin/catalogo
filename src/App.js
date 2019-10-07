@@ -53,9 +53,7 @@ function App(props) {
       <footer>
         <AppBar position="static">
             <Toolbar>
-            <center>
               ¡Muchas gracias por su visita!
-            </center>
             </Toolbar>
         </AppBar>
       </footer>
