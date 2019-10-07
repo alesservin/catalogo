@@ -5,7 +5,6 @@ import {BrowserRouter as Router, Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-// import Paper from '@material-ui/core/Paper';
 
 import Producto from './Producto.js'
 

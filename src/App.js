@@ -32,7 +32,6 @@ const styles = theme => ({
   },
 });
 
-
 function Productos({match}){
   return(
     <>
