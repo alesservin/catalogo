@@ -32,12 +32,12 @@ const styles = theme => ({
   },
 });
 
+
 function Productos({match}){
   return(
     <>
-       {/*alert(`${match.path}/new`)*/}
-      <Route exact path={`${match.path}new`} component={FormularioProducto} />
-      <Route exact path={`${match.path}edit/:idProducto`}
+      <Route exact path={`${match.path}nuevo`} component={FormularioProducto} />
+      <Route exact path={`${match.path}editar/:idProducto`}
       component={FormularioProducto} />
       <Route exact path={`${match.path}`} component={ListaProductos} />
     </>
@@ -46,34 +46,33 @@ function Productos({match}){
 
 function App(props) {
   const { classes } = props;
+
   return (
     <>
       <Router>
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" color="inherit" className={classes.grow}>
+                Catálogo
+              </Typography>
+              <Button color="inherit">
+                <Link style={{textDecoration:'none',color:'white'}} to="">
+                  Home
+                </Link>
+              </Button>
+              <Button color="inherit">
+                <Link style={{textDecoration:'none',color:'white'}}
+                 to="/about">
+                  About
+                </Link>
+              </Button>
+            </Toolbar>
+          </AppBar>
+        </div>
 
-          <div className={classes.root}>
-            <AppBar position="static">
-              <Toolbar>
-                <Typography variant="h6" color="inherit" className={classes.grow}>
-                  Catálogo
-                </Typography>
-                <Button color="inherit">
-                  <Link style={{textDecoration:'none',color:'white'}} to="/">
-                    Home
-                  </Link>
-                </Button>
-                <Button color="inherit">
-                  <Link style={{textDecoration:'none',color:'white'}}
-                   to="/about">
-                    About
-                  </Link>
-                </Button>
-              </Toolbar>
-            </AppBar>
-          </div>
-
-          <Route path="/" exact component={Productos} />
-          <Route path="/about" component={About} />
-
+        <Route path="" exact component={Productos} />
+        <Route path="/about" component={About} />
       </Router>
 
       <footer>
