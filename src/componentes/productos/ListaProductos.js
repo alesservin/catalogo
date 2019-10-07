@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
+import {BrowserRouter as Router, Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -17,8 +18,8 @@ class ListaProductos extends React.Component{
   componentDidMount(){
     axios.get('/ws/rest/productos/')
       .then(res => {
-        const productos = res.data; // se obtiene los productos
-        this.setState({ productos: productos })
+        // const productos = res.data; // se obtiene los productos
+        // this.setState({ productos: productos })
       })
       .catch(err => {
         console.log('Error');
@@ -40,13 +41,28 @@ class ListaProductos extends React.Component{
   };
 
   render(){
+    const { match } = this.props;
     return(
       <>
         <Grid container spacing={3} style={{padding:'2%'}}>
           <Grid item xs={5}>
-            <Button variant="contained" >
-              + Nuevo
+
+              <Link style={{textDecoration:'none',color:'black'}}
+              to={`${match.path}/new`}>
+                <Button variant="contained" >
+                  + Nuevo
+                </Button>
+              </Link>
+
+              <Button variant="contained" >
+              <Link
+              to={`${match.path}/new`}>
+
+                  + Nuevo
+
+              </Link>
             </Button>
+
           </Grid>
           <Grid item xs={3}>
             Ordenar por favoritos
