@@ -174,6 +174,7 @@ class FormularioProducto extends React.Component{
             onSubmit={this.handleSubmit } >
             <center>
               <h3>
+
                 {match.params.idProducto ? "Editar producto"  : "Agregar nueva producto"}
               </h3>
             </center>

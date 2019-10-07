@@ -46,23 +46,12 @@ class ListaProductos extends React.Component{
       <>
         <Grid container spacing={3} style={{padding:'2%'}}>
           <Grid item xs={5}>
-
-              <Link style={{textDecoration:'none',color:'black'}}
-              to={`${match.path}/new`}>
+              <Link
+              to={`${match.path}nuevo`}>
                 <Button variant="contained" >
                   + Nuevo
                 </Button>
               </Link>
-
-              <Button variant="contained" >
-              <Link
-              to={`${match.path}/new`}>
-
-                  + Nuevo
-
-              </Link>
-            </Button>
-
           </Grid>
           <Grid item xs={3}>
             Ordenar por favoritos
