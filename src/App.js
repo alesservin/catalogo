@@ -1,26 +1,94 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+import './App.css';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
+import ListaProductos from './componentes/productos/ListaProductos.js';
+import FormularioProducto from './componentes/productos/FormularioProducto.js';
+import About from './componentes/About.js';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+  grow: {
+  flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+});
+
+function Productos({match}){
+  return(
+    <>
+       {/*alert(`${match.path}/new`)*/}
+      <Route exact path={`${match.path}new`} component={FormularioProducto} />
+      <Route exact path={`${match.path}edit/:idProducto`}
+      component={FormularioProducto} />
+      <Route exact path={`${match.path}`} component={ListaProductos} />
+    </>
   );
 }
 
-export default App;
+function App(props) {
+  const { classes } = props;
+  return (
+    <>
+      <Router>
+
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Toolbar>
+                <Typography variant="h6" color="inherit" className={classes.grow}>
+                  Catálogo
+                </Typography>
+                <Button color="inherit">
+                  <Link style={{textDecoration:'none',color:'white'}} to="/">
+                    Home
+                  </Link>
+                </Button>
+                <Button color="inherit">
+                  <Link style={{textDecoration:'none',color:'white'}}
+                   to="/about">
+                    About
+                  </Link>
+                </Button>
+              </Toolbar>
+            </AppBar>
+          </div>
+
+          <Route path="/" exact component={Productos} />
+          <Route path="/about" component={About} />
+
+      </Router>
+
+      <footer>
+        <AppBar position="static">
+            <Toolbar>
+              ¡Muchas gracias por su visita!
+            </Toolbar>
+        </AppBar>
+      </footer>
+    </>
+  );
+}
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(App);
