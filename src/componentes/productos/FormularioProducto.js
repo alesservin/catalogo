@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -23,7 +24,7 @@ const styles = theme => ({
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    // textAlign: 'center',
     color: theme.palette.text.secondary,
   },
 });
@@ -36,6 +37,8 @@ class FormularioProducto extends React.Component{
     idType: '',
     limitDate: '',
     tipos: [],
+    precio: '',
+    imagen: '',
   };
 
   componentDidMount(){
@@ -98,6 +101,9 @@ class FormularioProducto extends React.Component{
         break;
       case 'fechaLimite':
         this.setState({limitDate: e.target.value});
+        break;
+      case 'precio':
+        this.setState({precio: e.target.value});
         break;
       default:
         break;
@@ -162,6 +168,11 @@ class FormularioProducto extends React.Component{
 
   }
 
+  handleChangeCheckBoxFavoritos = event => {
+    this.setState({ checked: event.target.checked });
+  }
+
+
   render(){
     const { match } = this.props;
     const { classes } = this.props;
@@ -182,15 +193,15 @@ class FormularioProducto extends React.Component{
             <Grid container spacing={24}>
               <Grid item xs={12}>
                 <Paper className={classes.paper} >
-                  Nombre de la tarea: &nbsp;
-                  <TextField value={this.state.name} isRequired type="text" name="nombre"
-                  onChange={this.handleChangeTxt('nombre')}
+                  Nombre: &nbsp;
+                  <TextField value={this.state.name} isRequired type="text"
+                  name="nombre" onChange={this.handleChangeTxt('nombre')}
                   style={{width:'80%'}} /> <br></br>
                 </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Paper className={classes.paper} >
-                  Descripcion de la tarea: &nbsp;
+                  Descripcion: &nbsp;
                   <TextField value={this.state.description} type="text" name="descripcion"
                   onChange={this.handleChangeTxt('descripcion')}
                   style={{width:'80%'}} /> <br></br>
@@ -198,7 +209,7 @@ class FormularioProducto extends React.Component{
               </Grid>
               <Grid item xs={12}>
                 <Paper className={classes.paper} >
-                  Tipo de tarea: &nbsp;
+                  Categoría: &nbsp;
                   <Select value={this.state.idType} onChange={this.handleChangeTxt('tipo')}
                   displayEmpty name="tipo" style={{width:'80%'}}>
                     // se toman todos los tipos
@@ -210,8 +221,45 @@ class FormularioProducto extends React.Component{
                 </Paper>
               </Grid>
               <Grid item xs={12}>
+                <Paper className={classes.paper} >
+                  Proveedor: &nbsp;
+                  <Select value={this.state.idType} onChange={this.handleChangeTxt('tipo')}
+                  displayEmpty name="tipo" style={{width:'80%'}}>
+                    // se toman todos los tipos
+                    { this.state.tipos.map(tipo =>(
+                      <MenuItem value={tipo.id}>{tipo.nombre}</MenuItem>
+                    ))
+                    }
+                  </Select> <br></br>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper className={classes.paper} >
+                  Precio: &nbsp;
+                  <TextField value={this.state.precio} type="number"
+                  name="precio"
+                  onChange={this.handleChangeTxt('precio')}
+                  style={{width:'80%'}} /> <br></br>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper className={classes.paper} >
+                  Favorito: &nbsp;
+                  <Checkbox
+                    checked={this.state.checked}
+                    onChange={this.handleChangeCheckBoxFavoritos}
+                    value="checkedB"
+                    color="primary"
+                    inputProps={{
+                      'aria-label': 'secondary checkbox',
+                    }}
+                  />
+                  <br></br>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  Fecha limite:
+                  Fecha de  compra:
                   <DatePicker
                   style={{width:'80%'}}
                   selected={this.state.limitDate}
@@ -221,8 +269,17 @@ class FormularioProducto extends React.Component{
                 </Paper>
               </Grid>
               <Grid item xs={12}>
+                <Paper className={classes.paper} >
+                  Imagen: &nbsp;
+                  <TextField value={this.state.imagen} type="text"
+                  name="imagen"
+                  onChange={this.handleChangeTxt('imagen')}
+                  style={{width:'80%'}} /> <br></br>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  <Button variant="contained"> <Link to='/productos'>Cancelar
+                  <Button variant="contained"> <Link to='/'>Cancelar
                   </Link> </Button> &nbsp;
                   <Button variant="contained" type="submit">Guardar</Button>
                 </Paper>
