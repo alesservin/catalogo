@@ -4,7 +4,7 @@ import './App.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -30,6 +30,24 @@ const styles = theme => ({
     marginRight: 20,
   },
 });
+
+function FormularioProducto(){
+  return(
+    <>
+    </>
+  )
+}
+
+function Productos({match}){
+  return(
+    <>
+      <Route exact path={`${match.path}/new`} component={FormularioProducto} />
+      <Route exact path={`${match.path}/edit/:taskId`}
+      component={FormularioProducto} />
+      <Route exact path={`${match.path}`} component={ListaProductos} />
+    </>
+  );
+}
 
 function App(props) {
   const { classes } = props;
@@ -60,7 +78,7 @@ function App(props) {
           </div>
         </header>
 
-        <Route path="/" exact component={ListaProductos} />
+        <Route path="/" exact component={Productos} />
         <Route path="/about" component={About} />
 
       </Router>
