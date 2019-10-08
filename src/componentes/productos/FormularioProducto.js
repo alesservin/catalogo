@@ -77,7 +77,7 @@ class FormularioProducto extends React.Component{
         console.log('Error');
         console.log(err);
       })
-      
+
     // se toman todos los proveedores
     axios.get('/ws/rest/proveedores/')
       .then(res => {
@@ -115,7 +115,7 @@ class FormularioProducto extends React.Component{
         const id = e.target.value;
         this.setState({ idType: id });
         break;
- 
+
       case 'fechaLimite':
         this.setState({limitDate: e.target.value});
         break;
