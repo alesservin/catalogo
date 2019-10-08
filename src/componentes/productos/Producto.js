@@ -64,8 +64,8 @@ class Producto extends React.Component {
         />
         <CardMedia
           className={classes.media}
-          image="/imagenes/bonsai.jpg"
-          title="Paella dish"
+          image="imagenes/iPhone11.jpg"
+          title="Iphone 11"
         />
         <CardContent>
           <Typography component="p">
