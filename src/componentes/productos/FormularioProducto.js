@@ -38,7 +38,7 @@ class FormularioProducto extends React.Component{
     idCategoria:'',
     idProveedor: '',
     favorito: '',
-    fechaCompra:'',
+    fechaCompra:  moment(this.props.value, 'LLL'),
     imagen: '',
     borrado: '',
     categorias: [],
@@ -108,7 +108,6 @@ class FormularioProducto extends React.Component{
   }
 
   handleChange = date => {
-    alert(date);
     this.setState({
       fechaCompra: date,
     })
@@ -222,7 +221,7 @@ class FormularioProducto extends React.Component{
   }
 
   handleChangeCheckBoxFavoritos = event => {
-    this.setState({ checked: event.target.checked });
+    this.setState({ favorito: event.target.checked });
   }
 
 
@@ -309,8 +308,10 @@ class FormularioProducto extends React.Component{
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
                   Fecha de compra:
+
                   <DatePicker
                   style={{width:'80%'}}
+                  selected={this.state.fechaCompra}
                   value={this.state.fechaCompra}
                   onChange={this.handleChange} name="fechaCompra"
                   />
@@ -328,8 +329,12 @@ class FormularioProducto extends React.Component{
               </Grid>
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  <Button variant="contained"> <Link to='/'>Cancelar
-                  </Link> </Button> &nbsp;
+                  <Link to='/' >
+                    <Button variant="contained">
+                      Cancelar
+                    </Button>
+                </Link>
+                  &nbsp;
                   <Button variant="contained" type="submit">Guardar</Button>
                 </Paper>
               </Grid>
