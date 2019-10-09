@@ -32,29 +32,41 @@ const styles = theme => ({
 class FormularioProducto extends React.Component{
   state = {
     idProducto: '',
-    name:'',
-    description:'',
-    idType: '',
-    limitDate: '',
-    tipos: [],
-    proveedores: [],
-    precio: '',
+    nombre:'',
+    descripcion:'',
+    precio:'',
+    idCategoria:'',
+    idProveedor: '',
+    favorito: '',
+    fechaCompra:'',
     imagen: '',
+    borrado: '',
+    categorias: [],
+    proveedores: [],
   };
 
   componentDidMount(){
       const { match } = this.props;
       const idProducto = match.params.idProducto;
-
-    //si existe el idProducto, se obtiene el task por su idea
+    //si existe el idProducto, se obtiene el producto por su id
     if (idProducto) {
       // se toma el idProducto
       axios.get('/ws/rest/productos/' + idProducto)
         .then(res => {
-          const tarea = res.data; // se obtiene las tareas
-          this.setState({ idProducto: tarea.id, name: tarea.name,
-          description: tarea.description, idType: tarea.type.id,
-          limitDate: tarea.limitDate });
+          const producto = res.data; // se obtiene las tareas
+          this.setState({
+            idProducto: producto.id,
+            nombre:producto.nombre,
+            descripcion:producto.descripcion,
+            precio:producto.precio,
+            idCategoria:producto.categoria.id,
+            idProveedor: producto.proveedor.id,
+            favorito: producto.favorito,
+            fechaCompra:moment(producto.fechaCompra,'YYYY-MM-DDTHH:mm:ssZ').format('DD-MM-YYYY'),
+
+            imagen: producto.imagen,
+            borrado: producto.borrado,
+          });
 
         })
         .catch(err => {
@@ -66,12 +78,12 @@ class FormularioProducto extends React.Component{
     // se toman todos los tipos de productos
     axios.get('/ws/rest/categorias/')
       .then(res => {
-        const tipos = res.data; // se obtiene las tareas
-        let vecTipos = tipos.map(tipo => (
-          { id: tipo.id, nombre: tipo.nombre }
+        const categorias = res.data; // se obtiene las tareas
+        let vecCategoria = categorias.map(categoria => (
+          { id: categoria.id, nombre: categoria.nombre }
         ));
         //se pasa el vector
-        this.setState({tipos:vecTipos}) ;
+        this.setState({categorias:vecCategoria}) ;
       })
       .catch(err => {
         console.log('Error');
@@ -96,9 +108,12 @@ class FormularioProducto extends React.Component{
   }
 
   handleChange = date => {
+    alert(date);
     this.setState({
-      limitDate: date,
+      fechaCompra: date,
     })
+
+    alert(this.state.fechaCompra);
 
   };
 
@@ -111,16 +126,20 @@ class FormularioProducto extends React.Component{
       case 'descripcion':
         this.setState({description: e.target.value});
         break;
-      case 'tipo':
-        const id = e.target.value;
-        this.setState({ idType: id });
-        break;
-
-      case 'fechaLimite':
-        this.setState({limitDate: e.target.value});
-        break;
       case 'precio':
         this.setState({precio: e.target.value});
+        break;
+      case 'categoria':
+        this.setState({idCategoria: e.target.value});
+        break;
+      case 'proveedor':
+        this.setState({idProveedor: e.target.value});
+        break;
+      case 'descripcion':
+        this.setState({description: e.target.value});
+        break;
+      case 'imagen':
+        this.setState({imagen: e.target.value});
         break;
       default:
         break;
@@ -131,52 +150,69 @@ class FormularioProducto extends React.Component{
 
   handleSubmit = event => {
     const {match} = this.props;
-    let tipo = null ;
+    let categoria = null ;
+    let proveedor = null;
     let tareaNueva = {};
     tareaNueva = {
-      name:this.state.name,
-      description:this.state.description,
-      type: tipo,
-      limitDate: moment(this.state.limitDate).format('YYYY-MM-DD'),
+      nombre:this.state.nombre,
+      descripcion:this.state.descripcion,
+      precio:this.state.precio,
+      categoria: categoria,
+      proveedor: proveedor,
+      favorito: this.state.favorito,
+      //fechaCompra:this.state.fechaCompra,
+      imagen: this.state.imagen,
+      borrado: this.state.borrado,
+      //limitDate: moment(this.state.limitDate).format('YYYY-MM-DD'),
     };
 
     event.preventDefault(); // previene que se recargue la pagina
 
-    //se obtiene por medio de un servicio, el objeto categoria
-    axios.get('/ws/rest/categorias/' + this.state.idType)
+    // se obtiene por medio de un servicio, el proveedor
+    axios.get('/ws/rest/proveedores/' + this.state.idProveedor)
       .then(res => {
-        tipo = {type: res.data}; // se obtiene la tarea
+        proveedor = {proveedor: res.data}; // se obtiene la producto
         // se reemplaza el tipo anterior(en null), con el actual
-        tareaNueva = Object.assign(tareaNueva,tipo);
+        tareaNueva = Object.assign(tareaNueva,proveedor);
 
-        // se existe productosId, se actualiza o agrga un nuevvo registro
-        if (match.params.idProducto) {
-            // SE ACTUALIZA EL REGISTRO
-            axios.put('/ws/rest/productos/' + match.params.idProducto, tareaNueva )
-              .then(response => {
-                // this.setState({ friends: response.data });
-                alert('Actualizado con éxito');
+        //se obtiene por medio de un servicio, el objeto categoria
+        axios.get('/ws/rest/categorias/' + this.state.idCategoria)
+          .then(res => {
+            categoria = {categoria: res.data}; // se obtiene la producto
+            // se reemplaza el tipo anterior(en null), con el actual
+            tareaNueva = Object.assign(tareaNueva,categoria);
 
-              })
-              .catch(error => {
-                console.log(error);
-                alert('Error: no se ha podido actualizar el registro');
-              });
-        }
-        else // si no hay idProducto
-        {
-          // SE GUARDA UN NUEVOO REGISTRO
-          axios.post('/ws/rest/productos/', tareaNueva )
-            .then(res => {
-              alert('Registrado con éxito');
+            // se existe productosId, se actualiza o agrga un nuevvo registro
+            if (match.params.idProducto) {
+                // SE ACTUALIZA EL REGISTRO
+                axios.put('/ws/rest/productos/' + match.params.idProducto, tareaNueva )
+                  .then(response => {
+                    alert('Actualizado con éxito');
+                  })
+                  .catch(error => {
+                    console.log(error);
+                    alert('Error: no se ha podido actualizar el registro');
+                  });
+            }
+            else // si no hay idProducto
+            {
+              // SE GUARDA UN NUEVOO REGISTRO
+              axios.post('/ws/rest/productos/', tareaNueva )
+                .then(res => {
+                  alert('Registrado con éxito');
+                })
+                .catch(err => {
+                  console.log('Error');
+                  console.log(err);
+                  alert('Ha ocurrido un error y no se ha podido guardar el registro');
+                })
+            }
+          })
+          .catch(err => {
+            console.log('Error');
+            console.log(err);
+          })
 
-            })
-            .catch(err => {
-              console.log('Error');
-              console.log(err);
-              alert('Ha ocurrido un error y no se ha podido guardar el registro');
-            })
-        }
       })
       .catch(err => {
         console.log('Error');
@@ -202,7 +238,6 @@ class FormularioProducto extends React.Component{
             onSubmit={this.handleSubmit } >
             <center>
               <h3>
-
                 {match.params.idProducto ? "Editar producto"  : "Agregar nueva producto"}
               </h3>
             </center>
@@ -211,7 +246,7 @@ class FormularioProducto extends React.Component{
               <Grid item xs={12}>
                 <Paper className={classes.paper} >
                   Nombre: &nbsp;
-                  <TextField value={this.state.name} isRequired type="text"
+                  <TextField value={this.state.nombre} isRequired type="text"
                   name="nombre" onChange={this.handleChangeTxt('nombre')}
                   style={{width:'80%'}} /> <br></br>
                 </Paper>
@@ -219,7 +254,7 @@ class FormularioProducto extends React.Component{
               <Grid item xs={12}>
                 <Paper className={classes.paper} >
                   Descripcion: &nbsp;
-                  <TextField value={this.state.description} type="text" name="descripcion"
+                  <TextField value={this.state.descripcion} type="text" name="descripcion"
                   onChange={this.handleChangeTxt('descripcion')}
                   style={{width:'80%'}} /> <br></br>
                 </Paper>
@@ -227,10 +262,10 @@ class FormularioProducto extends React.Component{
               <Grid item xs={12}>
                 <Paper className={classes.paper} >
                   Categoría: &nbsp;
-                  <Select value={this.state.idType} onChange={this.handleChangeTxt('tipo')}
+                  <Select value={this.state.idCategoria} onChange={this.handleChangeTxt('categoria')}
                   displayEmpty name="tipo" style={{width:'80%'}}>
                     // se toman todos los tipos
-                    { this.state.tipos.map(tipo =>(
+                    { this.state.categorias.map(tipo =>(
                       <MenuItem value={tipo.id}>{tipo.nombre}</MenuItem>
                     ))
                     }
@@ -240,7 +275,7 @@ class FormularioProducto extends React.Component{
               <Grid item xs={12}>
                 <Paper className={classes.paper} >
                   Proveedor: &nbsp;
-                  <Select value={this.state.idType} onChange={this.handleChangeTxt('tipo')}
+                  <Select value={this.state.idProveedor} onChange={this.handleChangeTxt('proveedor')}
                   displayEmpty name="tipo" style={{width:'80%'}}>
                     // se toman todos los tipos
                     { this.state.proveedores.map(p =>(
@@ -263,13 +298,10 @@ class FormularioProducto extends React.Component{
                 <Paper className={classes.paper} >
                   Favorito: &nbsp;
                   <Checkbox
-                    checked={this.state.checked}
+                    checked={this.state.favorito}
                     onChange={this.handleChangeCheckBoxFavoritos}
                     value="checkedB"
                     color="primary"
-                    inputProps={{
-                      'aria-label': 'secondary checkbox',
-                    }}
                   />
                   <br></br>
                 </Paper>
@@ -279,8 +311,8 @@ class FormularioProducto extends React.Component{
                   Fecha de compra:
                   <DatePicker
                   style={{width:'80%'}}
-                  selected={this.state.limitDate}
-                  onChange={this.handleChange} name="fechaLimite"
+                  value={this.state.fechaCompra}
+                  onChange={this.handleChange} name="fechaCompra"
                   />
                 <br></br>
                 </Paper>
