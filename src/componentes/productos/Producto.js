@@ -20,7 +20,7 @@ const styles = theme => ({
     maxWidth: 400,
   },
   media: {
-    height: 0,
+    height: 130,
     paddingTop: '56.25%', // 16:9
   },
   actions: {
@@ -64,7 +64,8 @@ class Producto extends React.Component {
         />
         <CardMedia
           className={classes.media}
-          image="imagenes/iPhone11.jpg"
+          // image="imagenes/iPhone11.jpg"
+          image = {imagen}
           title="Iphone 11"
         />
         <CardContent>
