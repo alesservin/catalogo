@@ -5,6 +5,8 @@ import {BrowserRouter as Router, Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import classnames from 'classnames';
+import Card from '@material-ui/core/Card';
 
 import Producto from './Producto.js'
 
@@ -40,13 +42,17 @@ class ListaProductos extends React.Component{
     }
   };
 
-  
+
 
   render(){
     const { match } = this.props;
+<<<<<<< HEAD
     console.log('render');
     console.log(match);
    
+=======
+
+>>>>>>> alejandro
     return(
       <>
         <Grid container spacing={3} style={{padding:'2%'}}>
@@ -64,7 +70,7 @@ class ListaProductos extends React.Component{
               checked={this.state.checked}
               onChange={this.handleChangeCheckBoxFavoritos}
               value="checkedB"
-              color="primary" 
+              color="primary"
               inputProps={{
                 'aria-label': 'secondary checkbox',
               }}
