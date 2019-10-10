@@ -33,12 +33,11 @@ const styles = theme => ({
 });
 
 function Productos({match}){
+  console.log(match);
   return(
     <>
-      <Route exact path={`${match.path}nuevo`} component={FormularioProducto} />
-      <Route exact path={`${match.path}editar/:idProducto`}
-
-      component={FormularioProducto} />
+      <Route exact path={`${match.path}/nuevo`} component={FormularioProducto} />
+      <Route exact path={`${match.path}/editar/:idProducto`} component={FormularioProducto} />
       <Route exact path={`${match.path}`} component={ListaProductos} />
     </>
   );
@@ -72,6 +71,9 @@ function App(props) {
         </div>
 
         <Route path="" exact component={Productos} />
+        <Route path="/productos" component={Productos} />
+        {/* <Route exact path={`/nuevo`} component={FormularioProducto} />
+        <Route exact path={`/editar/:idProducto`} component={FormularioProducto} /> */}
         <Route path="/about" component={About} />
       </Router>
 
