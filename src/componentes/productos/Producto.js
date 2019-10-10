@@ -20,6 +20,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import CurrencyFormat from 'react-currency-format';
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import { Button } from '@material-ui/core';
 // import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const styles = theme => ({
@@ -83,9 +84,10 @@ class Producto extends React.Component {
 
 
   render() {
+    console.log('render');
     const { classes } = this.props;
     const { match } = this.props;
-
+    console.log(match);
     const { id } = this.props;
     const { nombre } = this.props;
     const { categoria } = this.props;
@@ -117,11 +119,9 @@ class Producto extends React.Component {
           <IconButton aria-label="Eliminar" onClick={ () => this.delete(id)}>
             <DeleteIcon />
           </IconButton>
-    {/*   <Link to={`${match.path}edit/${id}`}>  */}
-          <IconButton arial-label="Editar">
-            <EditIcon />
-          </IconButton>
-     {/*  </Link>   */}
+          <IconButton arial-label="Editar" component={Link} to={`/productos/editar/${id}`}>
+            <EditIcon/>
+          </IconButton>  
           <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,

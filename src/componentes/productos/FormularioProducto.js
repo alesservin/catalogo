@@ -8,14 +8,14 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from 'moment';
+//import moment from 'moment';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import CurrencyFormat from 'react-currency-format';
+//import CurrencyFormat from 'react-currency-format';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -56,6 +56,7 @@ class FormularioProducto extends React.Component{
   };
 
   componentDidMount(){
+    console.log('formularioProducto');
       const { match } = this.props;
       const idProducto = match.params.idProducto;
     //si existe el idProducto, se obtiene el producto por su id
@@ -76,6 +77,7 @@ class FormularioProducto extends React.Component{
             imagen: producto.imagen,
             borrado: producto.borrado,
           });
+
         })
         .catch(err => {
           console.log('Error');
@@ -176,6 +178,8 @@ class FormularioProducto extends React.Component{
     .filter(prov => prov.id === idCategoria);
      console.log(vecCategoria);
 
+     console.log('fecha enviar: '+this.state.fechaCompra);
+
     tareaNueva = {
       nombre:this.state.nombre,
       descripcion:this.state.descripcion,
@@ -261,7 +265,7 @@ class FormularioProducto extends React.Component{
                   Categoría: &nbsp;
                   <Select value={this.state.idCategoria} onChange={this.handleChangeTxt('categoria')}
                   displayEmpty name="tipo" style={{width:'80%'}}>
-                    // se toman todos los tipos
+                    {/* se toman todos los tipos */}
                     { this.state.categorias.map(tipo =>(
                       <MenuItem value={tipo.id}>{tipo.nombre}</MenuItem>
                     ))
@@ -274,7 +278,7 @@ class FormularioProducto extends React.Component{
                   Proveedor: &nbsp;
                   <Select value={this.state.idProveedor} onChange={this.handleChangeTxt('proveedor')}
                   displayEmpty name="tipo" style={{width:'80%'}}>
-                    // se toman todos los tipos
+                    {/* se toman todos los tipos */}
                     { this.state.proveedores.map(p =>(
                       <MenuItem value={p.id}>{p.nombre}</MenuItem>
                     ))
