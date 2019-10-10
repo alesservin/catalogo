@@ -17,11 +17,26 @@ class ListaProductos extends React.Component{
 
   }
 
+  /*
+  Funcion que ordena un array de objetos
+  */
+  // function ordenarAsc(p_array_json, p_key) {
+  //    p_array_json.sort(function (a, b) {
+  //       return a[p_key] > b[p_key];
+  //    });
+  // }
+
   componentDidMount(){
     axios.get('/ws/rest/productos/')
       .then(res => {
-         const productos = res.data; // se obtiene los productos
-         this.setState({ productos: productos })
+         let productos = res.data; // se obtiene los productos
+
+         // se ordena los productos por id
+         productos = productos.sort(function(a,b){
+           return a['id'] < b['id'];
+         })
+
+         this.setState({ productos: productos });
       })
       .catch(err => {
         console.log('Error');
@@ -35,10 +50,26 @@ class ListaProductos extends React.Component{
     //verificar si el checkbox está en true o false
     if (event.target.checked === true) {
       // si es true, ordenar la lista de productos por favoritos
+      let productos = this.state.productos; // se obtiene los productos
+
+      // se ordena los productos por id
+      productos = productos.sort(function(a,b){
+        return a['favorito'] < b['favorito'];
+      })
+
+      this.setState({ productos: productos });
 
     }
     else {
       // si es false, NO ORDENAR por favoritos
+      let productos = this.state.productos; // se obtiene los productos
+      // se ordena los productos por id
+      productos = productos.sort(function(a,b){
+        return a['id'] < b['id'];
+      })
+
+      this.setState({ productos: productos });
+
     }
   };
 
