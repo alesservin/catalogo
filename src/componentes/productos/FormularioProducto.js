@@ -14,6 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 import Checkbox from '@material-ui/core/Checkbox';
+import CurrencyFormat from 'react-currency-format';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
