@@ -338,6 +338,7 @@ class FormularioProducto extends React.Component{
                 <br></br>
                 </Paper>
               </Grid>
+              
               <Grid item xs={12}>
                 <Paper className={classes.paper} >
                   Imagen: &nbsp;
