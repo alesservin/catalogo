@@ -148,9 +148,6 @@ class FormularioProducto extends React.Component{
       case 'imagen':
         this.setState({imagen: e.target.value});
         break;
-      case 'fecha':
-        this.setState({fecha: e.target.value});
-        break;
       default:
         break;
 
