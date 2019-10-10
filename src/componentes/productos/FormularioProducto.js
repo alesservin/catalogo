@@ -75,6 +75,7 @@ class FormularioProducto extends React.Component{
             imagen: producto.imagen,
             borrado: producto.borrado,
           });
+
         })
         .catch(err => {
           console.log('Error');
@@ -175,6 +176,8 @@ class FormularioProducto extends React.Component{
     .filter(prov => prov.id === idCategoria);
      console.log(vecCategoria);
 
+     console.log('fecha enviar: '+this.state.fechaCompra);
+
     tareaNueva = {
       nombre:this.state.nombre,
       descripcion:this.state.descripcion,
@@ -182,7 +185,7 @@ class FormularioProducto extends React.Component{
       categoria: vecCategoria[0],
       proveedor: vecProveedor[0],
       favorito: this.state.favorito,
-      fechaCompra: Date.parse(this.state.fechaCompra),
+      fechaCompra: this.state.fechaCompra,
       imagen: this.state.imagen,
       borrado: this.state.borrado,
 
@@ -260,7 +263,7 @@ class FormularioProducto extends React.Component{
                   Categoría: &nbsp;
                   <Select value={this.state.idCategoria} onChange={this.handleChangeTxt('categoria')}
                   displayEmpty name="tipo" style={{width:'80%'}}>
-                    // se toman todos los tipos
+                    {/* se toman todos los tipos */}
                     { this.state.categorias.map(tipo =>(
                       <MenuItem value={tipo.id}>{tipo.nombre}</MenuItem>
                     ))
