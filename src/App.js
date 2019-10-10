@@ -37,6 +37,7 @@ function Productos({match}){
     <>
       <Route exact path={`${match.path}nuevo`} component={FormularioProducto} />
       <Route exact path={`${match.path}editar/:idProducto`}
+
       component={FormularioProducto} />
       <Route exact path={`${match.path}`} component={ListaProductos} />
     </>
@@ -53,7 +54,7 @@ function App(props) {
           <AppBar position="static">
             <Toolbar>
               <Typography variant="h6" color="inherit" className={classes.grow}>
-                Catálogo
+                Catálogo sobre productos electronicos
               </Typography>
               <Button color="inherit">
                 <Link style={{textDecoration:'none',color:'white'}} to="">

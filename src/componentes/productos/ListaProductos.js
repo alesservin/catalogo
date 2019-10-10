@@ -39,8 +39,11 @@ class ListaProductos extends React.Component{
     }
   };
 
+
+
   render(){
     const { match } = this.props;
+
     return(
       <>
         <Grid container spacing={3} style={{padding:'2%'}}>
@@ -68,8 +71,8 @@ class ListaProductos extends React.Component{
         <Grid container spacing={3} style={{padding:'2%'}}>
           {this.state.productos.map(p => (
             <Grid item xs={3}>
-              <Producto  nombre={p.nombre} categoria={p.categoria.nombre}
-              precio={`Precio: ${p.precio}`} imagen={p.imagen} />
+              <Producto id={p.id} nombre={p.nombre} categoria={p.categoria.nombre}
+              precio={`Precio: ${p.precio}`} imagen={p.imagen} descripcion={p.descripcion}/>
             </Grid>
           ))}
         </Grid>

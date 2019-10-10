@@ -75,7 +75,7 @@ class FormularioProducto extends React.Component{
             imagen: producto.imagen,
             borrado: producto.borrado,
           });
-          
+
         })
         .catch(err => {
           console.log('Error');
