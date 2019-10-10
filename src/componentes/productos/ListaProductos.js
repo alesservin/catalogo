@@ -46,13 +46,9 @@ class ListaProductos extends React.Component{
 
   render(){
     const { match } = this.props;
-<<<<<<< HEAD
     console.log('render');
     console.log(match);
    
-=======
-
->>>>>>> alejandro
     return(
       <>
         <Grid container spacing={3} style={{padding:'2%'}}>
