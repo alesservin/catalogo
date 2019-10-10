@@ -47,20 +47,84 @@ class FormularioProducto extends React.Component{
     idCategoria:'',
     idProveedor: '',
     favorito: '',
-    fecha: '',
+    fechaCompra: '',
     imagen: '',
     borrado: '',
     categorias: [],
     proveedores: [],
   };
 
+  componentDidMount(){
+      const { match } = this.props;
+      const idProducto = match.params.idProducto;
+    //si existe el idProducto, se obtiene el producto por su id
+    if (idProducto) {
+      // se toma el idProducto
+      axios.get('/ws/rest/productos/' + idProducto)
+        .then(res => {
+          const producto = res.data; // se obtiene las tareas
+          this.setState({
+            idProducto: producto.id,
+            nombre:producto.nombre,
+            descripcion:producto.descripcion,
+            precio:producto.precio,
+            idCategoria:producto.categoria.id,
+            idProveedor: producto.proveedor.id,
+            favorito: producto.favorito,
+            fechaCompra: Date.parse(producto.fechaCompra),
+            imagen: producto.imagen,
+            borrado: producto.borrado,
+          });
+
+        })
+        .catch(err => {
+          console.log('Error');
+          console.log(err);
+
+          this.setState({fechaCompra:Date.parse('Wed Oct 23 2019 00:00:00 GMT-0300') ,});
+          console.log('fecha en catch: ' + this.state.fechaCompra);
+        })
+    }
+
+    // se toman todos los tipos de productos
+    // axios.get('/ws/rest/categorias/')
+    //   .then(res => {
+    //     const categorias = res.data; // se obtiene las tareas
+    //     let vecCategoria = categorias.map(categoria => (
+    //       { id: categoria.id, nombre: categoria.nombre }
+    //     ));
+    //     //se pasa el vector
+    //     this.setState({categorias:vecCategoria}) ;
+    //   })
+    //   .catch(err => {
+    //     console.log('Error');
+    //     console.log(err);
+    //   })
+    //
+    // // se toman todos los proveedores
+    // axios.get('/ws/rest/proveedores/')
+    //   .then(res => {
+    //     const proveedores = res.data; // se obtiene las tareas
+    //     let vecProveedores = proveedores.map(proveedores => (
+    //       { id: proveedores.id, nombre: proveedores.nombre }
+    //     ));
+    //     //se pasa el vector
+    //     this.setState({proveedores:vecProveedores}) ;
+    //   })
+    //   .catch(err => {
+    //     console.log('Error');
+    //     console.log(err);
+    //   })
+
+  }
+
 
   handleChange = date => {
     this.setState({
-      fecha: date,
+      fechaCompra: date,
     })
 
-    console.log(this.state.fecha);
+    console.log(this.state.fechaCompra);
 
   };
 
@@ -85,26 +149,27 @@ class FormularioProducto extends React.Component{
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
                   Fecha de compra:
-                  {/*selected={this.state.fecha != '' ? this.state.fecha : ''}*/}
                   <DatePicker
-                  selected={this.state.fecha}
+                  selected={this.state.fechaCompra}
                   style={{width:'80%'}}
-                  name="fecha"
-                  value={this.state.fecha}
+                  name="fechaCompra"
+                  value={this.state.fechaCompra}
                   onChange={this.handleChange}
                   />
-                  {/*alert(this.state.fecha)*/}
-                  <TextField
+                  {/*alert(this.state.fechaCompra)*/}
+                  {/*
+                    <TextField
                     id="date"
                     type="date"
-                    defaultValue={this.state.fecha}
-                    value={this.state.fecha}
+                    defaultValue={this.state.fechaCompra}
+                    value={this.state.fechaCompra}
                     className={classes.textField}
                     onChange={this.handleChange}
                     InputLabelProps={{
                       shrink: true,
                     }}
                   />
+                  */}
 
                 <br></br>
                 </Paper>
