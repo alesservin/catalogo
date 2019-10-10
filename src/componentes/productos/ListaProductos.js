@@ -14,6 +14,7 @@ class ListaProductos extends React.Component{
   state = {
     productos: [],
     checked: false,
+
   }
 
   componentDidMount(){
@@ -45,13 +46,15 @@ class ListaProductos extends React.Component{
 
   render(){
     const { match } = this.props;
+    console.log('render');
+    console.log(match);
 
     return(
       <>
         <Grid container spacing={3} style={{padding:'2%'}}>
           <Grid item xs={5}>
               <Link
-              to={`${match.path}nuevo`}>
+              to={`/productos/nuevo`}>
                 <Button variant="contained" >
                   + Nuevo
                 </Button>
@@ -73,6 +76,7 @@ class ListaProductos extends React.Component{
         <Grid container spacing={3} style={{padding:'2%'}}>
           {this.state.productos.map(p => (
             <Grid item xs={3}>
+<<<<<<< HEAD
 
               {/*<Card className={classes.card}>*/}
               <Card >
@@ -80,6 +84,10 @@ class ListaProductos extends React.Component{
                 precio={`Precio: ${p.precio}`} imagen={p.imagen} descripcion={p.descripcion}/>
               </Card>
 
+=======
+              <Producto id={p.id} nombre={p.nombre} categoria={p.categoria.nombre}
+              precio={`Precio: ${p.precio}`} imagen={p.imagen} descripcion={p.descripcion}  match={match}/>
+>>>>>>> lucas
             </Grid>
           ))}
         </Grid>

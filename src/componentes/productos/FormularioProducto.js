@@ -14,7 +14,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 import Checkbox from '@material-ui/core/Checkbox';
-import CurrencyFormat from 'react-currency-format';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -55,6 +55,7 @@ class FormularioProducto extends React.Component{
   };
 
   componentDidMount(){
+    console.log('formularioProducto');
       const { match } = this.props;
       const idProducto = match.params.idProducto;
     //si existe el idProducto, se obtiene el producto por su id
@@ -260,8 +261,8 @@ class FormularioProducto extends React.Component{
                   Categoría: &nbsp;
                   <Select value={this.state.idCategoria} onChange={this.handleChangeTxt('categoria')}
                   displayEmpty name="tipo" style={{width:'80%'}}>
-                    // se toman todos los tipos
-                    { this.state.categorias.map(tipo =>(
+                    {/* se toman todos los tipos */}
+                    { this.state.tipos.map(tipo =>(
                       <MenuItem value={tipo.id}>{tipo.nombre}</MenuItem>
                     ))
                     }
@@ -273,7 +274,7 @@ class FormularioProducto extends React.Component{
                   Proveedor: &nbsp;
                   <Select value={this.state.idProveedor} onChange={this.handleChangeTxt('proveedor')}
                   displayEmpty name="tipo" style={{width:'80%'}}>
-                    // se toman todos los tipos
+                    {/* se toman todos los tipos */}
                     { this.state.proveedores.map(p =>(
                       <MenuItem value={p.id}>{p.nombre}</MenuItem>
                     ))
@@ -287,6 +288,9 @@ class FormularioProducto extends React.Component{
                   <TextField value={this.state.precio} type="number"
                   name="precio"
                   onChange={this.handleChangeTxt('precio')}
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">$</InputAdornment>
+                  }}
                   style={{width:'80%'}} /> <br></br>
                 </Paper>
               </Grid>
