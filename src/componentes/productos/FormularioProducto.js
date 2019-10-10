@@ -60,14 +60,12 @@ class FormularioProducto extends React.Component{
       fecha: date,
     })
 
-    console.log(this.state.fecha.value);
+    console.log(this.state.fecha);
 
   };
 
-
   render(){
     const { match } = this.props;
-
     const { classes } = this.props;
 
     return(
@@ -87,11 +85,13 @@ class FormularioProducto extends React.Component{
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
                   Fecha de compra:
+                  {/*selected={this.state.fecha != '' ? this.state.fecha : ''}*/}
                   <DatePicker
+                  selected={this.state.fecha}
                   style={{width:'80%'}}
                   name="fecha"
                   value={this.state.fecha}
-                  onChange={this.handleChangeTxt('fecha')}
+                  onChange={this.handleChange}
                   />
                   {/*alert(this.state.fecha)*/}
                   <TextField
@@ -100,7 +100,7 @@ class FormularioProducto extends React.Component{
                     defaultValue={this.state.fecha}
                     value={this.state.fecha}
                     className={classes.textField}
-                    onChange={this.handleChangeTxt('fecha')}
+                    onChange={this.handleChange}
                     InputLabelProps={{
                       shrink: true,
                     }}

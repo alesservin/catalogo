@@ -5,6 +5,8 @@ import {BrowserRouter as Router, Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import classnames from 'classnames';
+import Card from '@material-ui/core/Card';
 
 import Producto from './Producto.js'
 
@@ -71,8 +73,13 @@ class ListaProductos extends React.Component{
         <Grid container spacing={3} style={{padding:'2%'}}>
           {this.state.productos.map(p => (
             <Grid item xs={3}>
-              <Producto id={p.id} nombre={p.nombre} categoria={p.categoria.nombre}
-              precio={`Precio: ${p.precio}`} imagen={p.imagen} descripcion={p.descripcion}/>
+
+              {/*<Card className={classes.card}>*/}
+              <Card >
+                <Producto id={p.id} nombre={p.nombre} categoria={p.categoria.nombre}
+                precio={`Precio: ${p.precio}`} imagen={p.imagen} descripcion={p.descripcion}/>
+              </Card>
+
             </Grid>
           ))}
         </Grid>

@@ -92,12 +92,9 @@ class Producto extends React.Component {
     const { precio } = this.props;
     const { imagen } = this.props;
     const { descripcion } = this.props;
-    
-    return (
 
-      
-      <Card className={classes.card}>
-        
+    return (
+      <>
         <CardHeader
           title={nombre}
           subheader={categoria}
@@ -144,7 +141,8 @@ class Producto extends React.Component {
             </Typography>
           </CardContent>
         </Collapse>
-      </Card>
+
+    </>
     );
   }
 }
