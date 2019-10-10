@@ -14,6 +14,7 @@ import ListaProductos from './componentes/productos/ListaProductos.js';
 import FormularioProducto from './componentes/productos/FormularioProducto.js';
 import About from './componentes/About.js';
 
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -33,11 +34,11 @@ const styles = theme => ({
 });
 
 function Productos({match}){
+  console.log(match);
   return(
     <>
-      <Route exact path={`${match.path}nuevo`} component={FormularioProducto} />
-      <Route exact path={`${match.path}editar/:idProducto`}
-      component={FormularioProducto} />
+      <Route exact path={`${match.path}/nuevo`} component={FormularioProducto} />
+      <Route exact path={`${match.path}/editar/:idProducto`} component={FormularioProducto} />
       <Route exact path={`${match.path}`} component={ListaProductos} />
     </>
   );
@@ -53,7 +54,7 @@ function App(props) {
           <AppBar position="static">
             <Toolbar>
               <Typography variant="h6" color="inherit" className={classes.grow}>
-                Catálogo
+                Catálogo sobre productos electronicos
               </Typography>
               <Button color="inherit">
                 <Link style={{textDecoration:'none',color:'white'}} to="">
@@ -71,9 +72,14 @@ function App(props) {
         </div>
 
         <Route path="" exact component={Productos} />
+        <Route path="/productos" component={Productos} />
+        {/* <Route exact path={`/nuevo`} component={FormularioProducto} />
+        <Route exact path={`/editar/:idProducto`} component={FormularioProducto} /> */}
         <Route path="/about" component={About} />
       </Router>
-
+<br></br>
+<br></br>
+<br></br>
       <footer>
         <AppBar position="static">
             <Toolbar>
