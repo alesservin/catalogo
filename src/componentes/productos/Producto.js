@@ -59,32 +59,28 @@ class Producto extends React.Component {
   };
 
   delete = objetoProducto => {
-    // se borra la tarea
-    axios.delete('/ws/rest/productos/' + objetoProducto.id)
-    .then(res => {
 
-      objetoProducto.borrado = !objetoProducto.borrado;
+    // se consulta si está seguro de si quiere eliminar el producto
+    if (window.confirm("¿Desea eliminar el producto "
+    + objetoProducto.nombre + " ?"))
+    {
+      // se borra la tarea
+      axios.delete('/ws/rest/productos/' + objetoProducto.id)
+      .then(res => {
 
-      this.setState({producto: objetoProducto});
+        objetoProducto.borrado = !objetoProducto.borrado;
 
-      // //volver a cargar la lista de tareas
-      // axios.get('/ws/rest/productos')
-      //   .then(res => {
-      //     const productos = res.data; // se obtiene las tareas
-      //     this.setState({ productos: productos });
-      //   })
-      //   .catch(err => {
-      //     console.log('Error');
-      //     console.log(err);
-      //   })
+        this.setState({producto: objetoProducto});
 
-      alert('Borrado con éxito');
+        alert('Borrado con éxito');
 
-    })
-    .catch(err => {
-      console.log('Error');
-      console.log(err);
-    })
+      })
+      .catch(err => {
+        console.log('Error');
+        console.log(err);
+      })
+
+    }
 
   }
 
