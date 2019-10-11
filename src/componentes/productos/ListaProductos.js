@@ -56,7 +56,6 @@ class ListaProductos extends React.Component{
       productos = productos.sort(function(a,b){
         return a['favorito'] < b['favorito'];
       })
-
       this.setState({ productos: productos });
 
     }
@@ -67,7 +66,6 @@ class ListaProductos extends React.Component{
       productos = productos.sort(function(a,b){
         return a['id'] < b['id'];
       })
-
       this.setState({ productos: productos });
 
     }
@@ -108,8 +106,7 @@ class ListaProductos extends React.Component{
           {this.state.productos.map(p => (
             <Grid item xs={3}>
 
-              <Producto id={p.id} nombre={p.nombre} categoria={p.categoria.nombre}
-              precio={`Precio: ${p.precio}`} imagen={p.imagen} descripcion={p.descripcion}  match={match}/>
+              <Producto match={match} objetoProducto={p} />
 
             </Grid>
           ))}

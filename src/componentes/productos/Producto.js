@@ -50,12 +50,18 @@ const styles = theme => ({
 });
 
 class Producto extends React.Component {
-  state = { expanded: false }
+  state = { expanded: false,
+    producto: {},
+  }
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
+  componentDidMount(){
+    // se toma el objeto producto tomado como propiedad y se lo asigna al estado
+    this.setState({producto: this.props.objetoProducto});
+  }
 
   delete = id => {
     // se borra la tarea
@@ -82,18 +88,40 @@ class Producto extends React.Component {
 
   }
 
+  changeFavorito = producto => {
+    /* se cambia el valor de favorito de producto, si es true a false y
+     viceversa */
+    producto.favorito = !producto.favorito;
+    // console.log(producto.favorito);
+
+    // SE ACTUALIZA EL REGISTRO
+    axios.put('/ws/rest/productos/' + producto.id, producto )
+      .then(response => {
+        // this.setState
+      })
+      .catch(error => {
+        console.log(error);
+        alert('Error: no se ha podido actualizar el registro');
+      });
+
+  }
 
   render() {
-    console.log('render');
+    // console.log('render');
     const { classes } = this.props;
     const { match } = this.props;
-    console.log(match);
-    const { id } = this.props;
-    const { nombre } = this.props;
-    const { categoria } = this.props;
-    const { precio } = this.props;
-    const { imagen } = this.props;
-    const { descripcion } = this.props;
+    // console.log(match);
+
+    // se toma el objeto producto
+    const objetoProducto = this.state.producto;
+
+    const { id } = objetoProducto;
+    const { nombre } = objetoProducto;
+    const categoria = objetoProducto.categoria.nombre;
+    const { precio } = objetoProducto;
+    const { imagen } = objetoProducto;
+    const { descripcion } = objetoProducto;
+    const {favorito} = objetoProducto;
 
     return (
       <>
@@ -109,19 +137,27 @@ class Producto extends React.Component {
         />
         <CardContent>
           <Typography component="p">
-            <CurrencyFormat value={precio} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+            <CurrencyFormat value={precio} displayType={'text'}
+            thousandSeparator={true} prefix={'$'} />
           </Typography>
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
+          {/*El color del boton favorito depende de si el state favorito else {
+            true o false       color="secondary"       }*/}
+          <IconButton
+          color={favorito ? "secondary" : "default"}
+          aria-label="Add to favorites"
+          onClick={ () => this.changeFavorito(objetoProducto)}
+          >
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="Eliminar" onClick={ () => this.delete(id)}>
             <DeleteIcon />
           </IconButton>
-          <IconButton arial-label="Editar" component={Link} to={`/productos/editar/${id}`}>
+          <IconButton arial-label="Editar" component={Link}
+           to={`/productos/editar/${id}`}>
             <EditIcon/>
-          </IconButton>  
+          </IconButton> 
           <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,
