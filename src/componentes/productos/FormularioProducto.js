@@ -8,7 +8,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -120,12 +119,11 @@ class FormularioProducto extends React.Component{
 
   handleChange = date => {
     this.setState({
-      fechaCompra: date,
+      fechaCompra: Date.parse(date),
     })
   };
 
   handleChangeTxt = field => (e) => {
-
     switch (field) {
       case 'nombre':
         this.setState({nombre: e.target.value});
@@ -152,11 +150,8 @@ class FormularioProducto extends React.Component{
 
   };
 
-
   handleSubmit = event => {
     const {match} = this.props;
-    let categoria = null ;
-    let proveedor = null;
     let tareaNueva = {};
 
     event.preventDefault(); // previene que se recargue la pagina, por el submit
@@ -166,7 +161,7 @@ class FormularioProducto extends React.Component{
     const idProveedor = this.state.idProveedor;
     vecProveedor = this.state.proveedores
     .filter(prov => prov.id === idProveedor);
-    console.log(vecProveedor);
+    // console.log(vecProveedor);
 
     // obtiene el objeto categoria, de acuerdo al id de
     // la categoria seleccionada
@@ -174,9 +169,9 @@ class FormularioProducto extends React.Component{
     const idCategoria = this.state.idCategoria;
     vecCategoria = this.state.categorias
     .filter(prov => prov.id === idCategoria);
-     console.log(vecCategoria);
+     // console.log(vecCategoria);
 
-     console.log('fecha enviar: '+this.state.fechaCompra);
+     // console.log('fecha enviar: '+this.state.fechaCompra);
 
     tareaNueva = {
       nombre:this.state.nombre,
@@ -193,6 +188,8 @@ class FormularioProducto extends React.Component{
 
     // se existe productosId, se actualiza o agrga un nuevvo registro
     if (match.params.idProducto) {
+
+
         // SE ACTUALIZA EL REGISTRO
         axios.put('/ws/rest/productos/' + match.params.idProducto, tareaNueva )
           .then(response => {
@@ -309,6 +306,7 @@ class FormularioProducto extends React.Component{
                 <Paper className={classes.paper}>
                   Fecha de compra:
                   <DatePicker
+                  dateFormat="dd-MM-yyy"
                   selected={this.state.fechaCompra}
                   style={{width:'80%'}}
                   name="fechaCompra"

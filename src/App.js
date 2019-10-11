@@ -4,7 +4,7 @@ import './App.css';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -34,7 +34,7 @@ const styles = theme => ({
 });
 
 function Productos({match}){
-  console.log(match);
+  // console.log(match);
   return(
     <>
       <Route exact path={`${match.path}/nuevo`} component={FormularioProducto} />
