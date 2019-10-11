@@ -30,45 +30,46 @@ function ImgMediaCard(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-<Grid item xs={15}>
-    <center>
+      <center>
+<Grid item xs={4}>
+    
     <h2>Miembros del Equipo</h2>
-    </center>
+    
 
 </Grid>
-
+</center>
     
     <br></br>
-    <Grid container spacing={24}>
+    <center>
+    <Grid container spacing={24} margin= '0' >
 
       <Grid item xs={4}>
         <Paper className={classes.paper}>
     <Card className={classes.card}>
+     
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Contemplative Reptile"
+          alt="Team Members"
           className={classes.media}
           height="350"
           image="Ale.jpg"
-          title="Contemplative Reptile"
+          title="Team Members"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Alejandro Servin
           </Typography>
-          <Typography component="p">
-            
-          </Typography>
+          <Typography className="subt" component="p">
+            Desarrollo
+          </Typography>  
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <IconButton aria-label="Link to LinkedIn">
-            <LinkedInIcon />
-          </IconButton>
           <IconButton aria-label="Link to Mail">
             <MailIcon />
           </IconButton>
+          <p>alejandro.servin@upa.edu.py</p>
       </CardActions>
       </Card>
       </Paper>
@@ -80,28 +81,26 @@ function ImgMediaCard(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Contemplative Reptile"
+          alt="Team Members"
           className={classes.media}
           height="350"
           image="Lucas.jpeg"
-          title="Contemplative Reptile"
+          title="Team Members"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Lucas Arce
           </Typography>
-          <Typography component="p">
-            
-          </Typography>
+          <Typography className="subt" component="p">
+            Desarrollo
+          </Typography> 
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <IconButton aria-label="Link to LinkedIn">
-            <LinkedInIcon />
-          </IconButton>
           <IconButton aria-label="Link to Mail">
             <MailIcon />
           </IconButton>
+          <p>lucas.arce@upa.edu.py</p>
       </CardActions>
       </Card>
       </Paper>
@@ -113,28 +112,26 @@ function ImgMediaCard(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Contemplative Reptile"
+          alt="Team Members"
           className={classes.media}
           height="350"
           image="Suely.jpeg"
-          title="Contemplative Reptile"
+          title="Team Members"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Suely Lopez Coronel
           </Typography>
-          <Typography component="p">
-           
-          </Typography>
+          <Typography className="subt" component="p">
+            Desarrollo
+          </Typography> 
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <IconButton aria-label="Link to LinkedIn">
-            <LinkedInIcon />
-          </IconButton>
           <IconButton aria-label="Link to Mail">
             <MailIcon />
           </IconButton>
+          <p>suely.lopez@upa.edu.py</p>
       </CardActions>
       </Card>
       </Paper>
@@ -143,7 +140,7 @@ function ImgMediaCard(props) {
 
       </Grid>
 
-
+      </center>
 
       
     </div>
