@@ -8,7 +8,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -154,8 +153,6 @@ class FormularioProducto extends React.Component{
 
   handleSubmit = event => {
     const {match} = this.props;
-    let categoria = null ;
-    let proveedor = null;
     let tareaNueva = {};
 
     event.preventDefault(); // previene que se recargue la pagina, por el submit

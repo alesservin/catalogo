@@ -4,7 +4,6 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -19,8 +18,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import CurrencyFormat from 'react-currency-format';
-import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Link} from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
@@ -104,8 +102,6 @@ class Producto extends React.Component {
   render() {
     // console.log('render');
     const { classes } = this.props;
-    const { match } = this.props;
-    // console.log(match);
 
     // se toma el objeto producto
     const {objetoProducto} = this.props;
@@ -118,7 +114,6 @@ class Producto extends React.Component {
     const { descripcion } = objetoProducto;
     const {favorito} = objetoProducto;
     const {borrado} = objetoProducto;
-    let display = '';
 
     return (
       <>
@@ -135,7 +130,6 @@ class Producto extends React.Component {
           className={classes.media}
           // image="imagenes/iPhone11.jpg"
           image = {imagen}
-          
         />
         <CardContent>
           <Typography component="p">
@@ -143,7 +137,7 @@ class Producto extends React.Component {
             thousandSeparator={true} prefix={'$'} />
           </Typography>
         </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
+        <CardActions className={classes.actions} >
           {/*El color del boton favorito depende de si el state favorito else {
             true o false       color="secondary"       }*/}
           <IconButton
