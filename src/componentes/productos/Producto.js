@@ -4,7 +4,6 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -19,9 +18,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import CurrencyFormat from 'react-currency-format';
-import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import { Button } from '@material-ui/core';
-// import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Link} from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   card: {
@@ -50,53 +48,80 @@ const styles = theme => ({
 });
 
 class Producto extends React.Component {
-  state = { expanded: false }
+  state = { expanded: false,
+    producto: {},
+  }
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
+  delete = objetoProducto => {
 
-  delete = id => {
-    // se borra la tarea
-    axios.delete('/ws/rest/productos/' + id)
-    .then(res => {
-      //volver a cargar la lista de tareas
-      axios.get('/ws/rest/productos')
-        .then(res => {
-          const productos = res.data; // se obtiene las tareas
-          this.setState({ productos: productos });
-        })
-        .catch(err => {
-          console.log('Error');
-          console.log(err);
-        })
+    // se consulta si está seguro de si quiere eliminar el producto
+    if (window.confirm("¿Desea eliminar el producto "
+    + objetoProducto.nombre + "?"))
+    {
+      // se borra la tarea
+      axios.delete('/ws/rest/productos/' + objetoProducto.id)
+      .then(res => {
 
-      alert('Borrado con éxito');
+        objetoProducto.borrado = !objetoProducto.borrado;
 
-    })
-    .catch(err => {
-      console.log('Error');
-      console.log(err);
-    })
+        this.setState({producto: objetoProducto});
+
+        alert('Borrado con éxito');
+
+      })
+      .catch(err => {
+        console.log('Error');
+        console.log(err);
+      })
+
+    }
 
   }
 
+  changeFavorito = producto => {
+    /* se cambia el valor de favorito de producto, si es true a false y
+     viceversa */
+    producto.favorito = !producto.favorito;
+
+    // SE ACTUALIZA EL REGISTRO
+    axios.put('/ws/rest/productos/' + producto.id, producto )
+      .then(response => {
+         this.setState({producto: producto});
+      })
+      .catch(error => {
+        console.log(error);
+        alert('Error: no se ha podido actualizar el registro');
+      });
+
+  }
 
   render() {
-    console.log('render');
+    // console.log('render');
     const { classes } = this.props;
-    const { match } = this.props;
-    console.log(match);
-    const { id } = this.props;
-    const { nombre } = this.props;
-    const { categoria } = this.props;
-    const { precio } = this.props;
-    const { imagen } = this.props;
-    const { descripcion } = this.props;
+
+    // se toma el objeto producto
+    const {objetoProducto} = this.props;
+
+    const { id } = objetoProducto;
+    const { nombre } = objetoProducto;
+    const categoria = objetoProducto.categoria.nombre;
+    const { precio } = objetoProducto;
+    const { imagen } = objetoProducto;
+    const { descripcion } = objetoProducto;
+    const {favorito} = objetoProducto;
+    const {borrado} = objetoProducto;
 
     return (
       <>
+      {/* si el producto no está eliminado, display = block
+        si el producto está eliminado, display = false.*/}
+
+      {/*<Grid item xs={3} style={{display:'block'}}> */}
+      <Grid item xs={3} style={{display: borrado ? 'none' : 'block' }}>
         <CardHeader
           title={nombre}
           subheader={categoria}
@@ -105,23 +130,31 @@ class Producto extends React.Component {
           className={classes.media}
           // image="imagenes/iPhone11.jpg"
           image = {imagen}
-          title="Iphone 11"
         />
         <CardContent>
           <Typography component="p">
-            <CurrencyFormat value={precio} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+            <CurrencyFormat value={precio} displayType={'text'}
+            thousandSeparator={true} prefix={'$'} />
           </Typography>
         </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
-          <IconButton aria-label="Add to favorites">
+        <CardActions className={classes.actions} >
+          {/*El color del boton favorito depende de si el state favorito else {
+            true o false       color="secondary"       }*/}
+          <IconButton
+          color={favorito ? "secondary" : "default"}
+          aria-label="Add to favorites"
+          onClick={ () => this.changeFavorito(objetoProducto)}
+          >
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="Eliminar" onClick={ () => this.delete(id)}>
+          <IconButton aria-label="Eliminar"
+          onClick={ () => this.delete(objetoProducto)}>
             <DeleteIcon />
           </IconButton>
-          <IconButton arial-label="Editar" component={Link} to={`/productos/editar/${id}`}>
+          <IconButton arial-label="Editar" component={Link}
+           to={`/productos/editar/${id}`}>
             <EditIcon/>
-          </IconButton>  
+          </IconButton> 
           <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,
@@ -141,7 +174,7 @@ class Producto extends React.Component {
             </Typography>
           </CardContent>
         </Collapse>
-
+      </Grid>
     </>
     );
   }
