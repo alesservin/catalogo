@@ -1,10 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import red from '@material-ui/core/colors/red';
 
 import Producto from './Producto.js'
 
