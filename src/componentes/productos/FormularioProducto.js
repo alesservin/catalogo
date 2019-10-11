@@ -153,6 +153,7 @@ class FormularioProducto extends React.Component{
 
   handleSubmit = event => {
     const {match} = this.props;
+    const {history} = this.props;
     let tareaNueva = {};
 
     event.preventDefault(); // previene que se recargue la pagina, por el submit
@@ -190,11 +191,14 @@ class FormularioProducto extends React.Component{
     // se existe productosId, se actualiza o agrga un nuevvo registro
     if (match.params.idProducto) {
 
-
         // SE ACTUALIZA EL REGISTRO
         axios.put('/ws/rest/productos/' + match.params.idProducto, tareaNueva )
           .then(response => {
             alert('Actualizado con éxito');
+
+            // se retorna al inicio
+            history.push('/');
+
           })
           .catch(error => {
             console.log(error);
@@ -207,6 +211,9 @@ class FormularioProducto extends React.Component{
       axios.post('/ws/rest/productos/', tareaNueva )
         .then(res => {
           alert('Registrado con éxito');
+
+          // se retorna al inicio
+          history.push('/');
         })
         .catch(err => {
           console.log('Error');
