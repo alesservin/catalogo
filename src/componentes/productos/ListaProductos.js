@@ -1,12 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-import classnames from 'classnames';
-import Card from '@material-ui/core/Card';
 
 import Producto from './Producto.js'
 
@@ -48,10 +46,6 @@ class ListaProductos extends React.Component{
   handleChangeCheckBoxFavoritos = event => {
     this.setState({ checked: event.target.checked });
 
-    this.state.productos.map(p =>{
-      console.log(p.favorito);
-    })
-
     //verificar si el checkbox está en true o false
     if (event.target.checked === true) {
       // si es true, ordenar la lista de productos por favoritos
@@ -80,8 +74,8 @@ class ListaProductos extends React.Component{
 
   render(){
     const { match } = this.props;
-    console.log('render');
-    console.log(match);
+    // console.log('render');
+    // console.log(match);
 
     return(
       <>
@@ -110,10 +104,8 @@ class ListaProductos extends React.Component{
         <Grid container spacing={3} style={{padding:'2%'}}>
           {this.state.productos.map(p => (
 
-
               <Producto match={match} objetoProducto={p} />
 
-          
           ))}
         </Grid>
       </>
