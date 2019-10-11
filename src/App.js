@@ -54,7 +54,7 @@ function App(props) {
           <AppBar position="static">
             <Toolbar>
               <Typography variant="h6" color="inherit" className={classes.grow}>
-                Catálogo sobre productos electronicos
+                Catálogo sobre productos electronicos de Alta Gama
               </Typography>
               <Button color="inherit">
                 <Link style={{textDecoration:'none',color:'white'}} to="">
@@ -64,7 +64,7 @@ function App(props) {
               <Button color="inherit">
                 <Link style={{textDecoration:'none',color:'white'}}
                  to="/about">
-                  About
+                  About Us
                 </Link>
               </Button>
             </Toolbar>

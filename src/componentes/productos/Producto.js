@@ -112,16 +112,16 @@ class Producto extends React.Component {
             <CurrencyFormat value={precio} displayType={'text'} thousandSeparator={true} prefix={'$'} />
           </Typography>
         </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
+        {/* <CardActions className={classes.actions} disableActionSpacing>
           <IconButton aria-label="Add to favorites">
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="Eliminar" onClick={ () => this.delete(id)}>
+          {/* <IconButton aria-label="Eliminar" onClick={ () => this.delete(id)}>
             <DeleteIcon />
           </IconButton>
           <IconButton arial-label="Editar" component={Link} to={`/productos/editar/${id}`}>
             <EditIcon/>
-          </IconButton>  
+          </IconButton>   */} 
           <IconButton
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded,
@@ -132,7 +132,7 @@ class Producto extends React.Component {
           >
             <ExpandMoreIcon />
           </IconButton>
-        </CardActions>
+       {/* </CardActions>  */}
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Descripcion:</Typography>
