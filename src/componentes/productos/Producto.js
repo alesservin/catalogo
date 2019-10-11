@@ -62,7 +62,7 @@ class Producto extends React.Component {
 
     // se consulta si está seguro de si quiere eliminar el producto
     if (window.confirm("¿Desea eliminar el producto "
-    + objetoProducto.nombre + " ?"))
+    + objetoProducto.nombre + "?"))
     {
       // se borra la tarea
       axios.delete('/ws/rest/productos/' + objetoProducto.id)
