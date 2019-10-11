@@ -137,7 +137,7 @@ class Producto extends React.Component {
             thousandSeparator={true} prefix={'$'} />
           </Typography>
         </CardContent>
-        <CardActions className={classes.actions} disableActionSpacing>
+        <CardActions className={classes.actions} >
           {/*El color del boton favorito depende de si el state favorito else {
             true o false       color="secondary"       }*/}
           <IconButton
