@@ -54,7 +54,7 @@ function ImgMediaCard(props) {
           className={classes.media}
           height="350"
           image="Ale.jpg"
-          title="Team Members"
+          title="Alejandro"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -85,7 +85,7 @@ function ImgMediaCard(props) {
           className={classes.media}
           height="350"
           image="Lucas.jpeg"
-          title="Team Members"
+          title="Lucas"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -116,7 +116,7 @@ function ImgMediaCard(props) {
           className={classes.media}
           height="350"
           image="Suely.jpeg"
-          title="Team Members"
+          title="Suely"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">

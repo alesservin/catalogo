@@ -135,7 +135,7 @@ class Producto extends React.Component {
           className={classes.media}
           // image="imagenes/iPhone11.jpg"
           image = {imagen}
-          title="Iphone 11"
+          
         />
         <CardContent>
           <Typography component="p">
