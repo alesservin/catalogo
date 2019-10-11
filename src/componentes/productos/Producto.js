@@ -21,7 +21,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CurrencyFormat from 'react-currency-format';
 import { BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
-// import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   card: {
@@ -58,25 +58,25 @@ class Producto extends React.Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
-  componentDidMount(){
-    // se toma el objeto producto tomado como propiedad y se lo asigna al estado
-    this.setState({producto: this.props.objetoProducto});
-  }
-
-  delete = id => {
+  delete = objetoProducto => {
     // se borra la tarea
-    axios.delete('/ws/rest/productos/' + id)
+    axios.delete('/ws/rest/productos/' + objetoProducto.id)
     .then(res => {
-      //volver a cargar la lista de tareas
-      axios.get('/ws/rest/productos')
-        .then(res => {
-          const productos = res.data; // se obtiene las tareas
-          this.setState({ productos: productos });
-        })
-        .catch(err => {
-          console.log('Error');
-          console.log(err);
-        })
+
+      objetoProducto.borrado = !objetoProducto.borrado;
+
+      this.setState({producto: objetoProducto});
+
+      // //volver a cargar la lista de tareas
+      // axios.get('/ws/rest/productos')
+      //   .then(res => {
+      //     const productos = res.data; // se obtiene las tareas
+      //     this.setState({ productos: productos });
+      //   })
+      //   .catch(err => {
+      //     console.log('Error');
+      //     console.log(err);
+      //   })
 
       alert('Borrado con éxito');
 
@@ -92,12 +92,11 @@ class Producto extends React.Component {
     /* se cambia el valor de favorito de producto, si es true a false y
      viceversa */
     producto.favorito = !producto.favorito;
-    // console.log(producto.favorito);
 
     // SE ACTUALIZA EL REGISTRO
     axios.put('/ws/rest/productos/' + producto.id, producto )
       .then(response => {
-        // this.setState
+         this.setState({producto: producto});
       })
       .catch(error => {
         console.log(error);
@@ -113,7 +112,7 @@ class Producto extends React.Component {
     // console.log(match);
 
     // se toma el objeto producto
-    const objetoProducto = this.state.producto;
+    const {objetoProducto} = this.props;
 
     const { id } = objetoProducto;
     const { nombre } = objetoProducto;
@@ -122,9 +121,16 @@ class Producto extends React.Component {
     const { imagen } = objetoProducto;
     const { descripcion } = objetoProducto;
     const {favorito} = objetoProducto;
+    const {borrado} = objetoProducto;
+    let display = '';
 
     return (
       <>
+      {/* si el producto no está eliminado, display = block
+        si el producto está eliminado, display = false.*/}
+
+      {/*<Grid item xs={3} style={{display:'block'}}> */}
+      <Grid item xs={3} style={{display: borrado ? 'none' : 'block' }}>
         <CardHeader
           title={nombre}
           subheader={categoria}
@@ -151,7 +157,8 @@ class Producto extends React.Component {
           >
             <FavoriteIcon />
           </IconButton>
-          <IconButton aria-label="Eliminar" onClick={ () => this.delete(id)}>
+          <IconButton aria-label="Eliminar"
+          onClick={ () => this.delete(objetoProducto)}>
             <DeleteIcon />
           </IconButton>
           <IconButton arial-label="Editar" component={Link}
@@ -177,7 +184,7 @@ class Producto extends React.Component {
             </Typography>
           </CardContent>
         </Collapse>
-
+      </Grid>
     </>
     );
   }

@@ -31,6 +31,7 @@ class ListaProductos extends React.Component{
       .then(res => {
          let productos = res.data; // se obtiene los productos
 
+
          // se ordena los productos por id
          productos = productos.sort(function(a,b){
            return a['id'] < b['id'];
@@ -46,6 +47,10 @@ class ListaProductos extends React.Component{
 
   handleChangeCheckBoxFavoritos = event => {
     this.setState({ checked: event.target.checked });
+
+    this.state.productos.map(p =>{
+      console.log(p.favorito);
+    })
 
     //verificar si el checkbox está en true o false
     if (event.target.checked === true) {
@@ -104,11 +109,11 @@ class ListaProductos extends React.Component{
         </Grid>
         <Grid container spacing={3} style={{padding:'2%'}}>
           {this.state.productos.map(p => (
-            <Grid item xs={3}>
+
 
               <Producto match={match} objetoProducto={p} />
 
-            </Grid>
+          
           ))}
         </Grid>
       </>
